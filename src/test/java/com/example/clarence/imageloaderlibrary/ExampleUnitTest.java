@@ -1,4 +1,4 @@
-package com.example.clarence.corelibrary;
+package com.example.clarence.imageloaderlibrary;
 
 import org.junit.Test;
 

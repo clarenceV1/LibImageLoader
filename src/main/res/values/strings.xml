@@ -1,3 +1,3 @@
 <resources>
-    <string name="module_core_crash_notice">很抱歉，程序出异常，即将退出。</string>
+    <string name="app_name">ImageLoaderLibrary</string>
 </resources>
