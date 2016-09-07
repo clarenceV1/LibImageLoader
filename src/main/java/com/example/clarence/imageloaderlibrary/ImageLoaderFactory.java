@@ -9,7 +9,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
  */
 public class ImageLoaderFactory {
 
-    public static void frescoImageLoadInit(Context context) {
+    public static void initFresco(Context context) {
         Fresco.initialize(context);
     }
 }
