@@ -17,6 +17,7 @@ public class ImageForGlide implements ILoadImage {
     public ImageForGlide(ImageForGlideBuild imageForGlideBuild) {
 
     }
+
     public static class ImageForGlideBuild {
 
         public ImageForGlideBuild() {
@@ -32,7 +33,14 @@ public class ImageForGlide implements ILoadImage {
     public void loadImage(Context context, ILoadImageParams builder) {
         if (builder instanceof ImageForGlideParams) {
             ImageForGlideParams glideParams = (ImageForGlideParams) builder;
-            Glide.with(context).load(glideParams.getUrl()).into(glideParams.getImageView());
+            if (glideParams.getTransformation() != null) {
+                Glide.with(context).load(glideParams.getUrl())
+                        .centerCrop()
+                        .transform(glideParams.getTransformation())
+                        .into(glideParams.getImageView());
+            } else {
+                Glide.with(context).load(glideParams.getUrl()).into(glideParams.getImageView());
+            }
         }
     }
 
@@ -40,7 +48,14 @@ public class ImageForGlide implements ILoadImage {
     public void loadImage(FragmentActivity activity, ILoadImageParams builder) {
         if (builder instanceof ImageForGlideParams) {
             ImageForGlideParams glideParams = (ImageForGlideParams) builder;
-            Glide.with(activity).load(glideParams.getUrl()).into(glideParams.getImageView());
+            if (glideParams.getTransformation() != null) {
+                Glide.with(activity).load(glideParams.getUrl())
+                        .centerCrop()
+                        .transform(glideParams.getTransformation())
+                        .into(glideParams.getImageView());
+            } else {
+                Glide.with(activity).load(glideParams.getUrl()).into(glideParams.getImageView());
+            }
         }
     }
 
@@ -48,7 +63,14 @@ public class ImageForGlide implements ILoadImage {
     public void loadImage(Fragment fragment, ILoadImageParams builder) {
         if (builder instanceof ImageForGlideParams) {
             ImageForGlideParams glideParams = (ImageForGlideParams) builder;
-            Glide.with(fragment).load(glideParams.getUrl()).into(glideParams.getImageView());
+            if (glideParams.getTransformation() != null) {
+                Glide.with(fragment).load(glideParams.getUrl())
+                        .centerCrop()
+                        .transform(glideParams.getTransformation())
+                        .into(glideParams.getImageView());
+            } else {
+                Glide.with(fragment).load(glideParams.getUrl()).into(glideParams.getImageView());
+            }
         }
     }
 }
