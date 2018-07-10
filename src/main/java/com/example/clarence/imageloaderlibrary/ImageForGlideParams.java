@@ -12,10 +12,14 @@ public class ImageForGlideParams implements ILoadImageParams {
     private ImageView imageView;
     private String url;
     private BitmapTransformation transformation;
+    private int placeholder;//占位图
+    private int error;//失败图
 
     private ImageForGlideParams(Builder builder) {
         url = builder.url;
         transformation = builder.transformation;
+        this.placeholder = builder.placeholder;
+        this.error = builder.error;
     }
 
     public ImageView getImageView() {
@@ -24,6 +28,14 @@ public class ImageForGlideParams implements ILoadImageParams {
 
     public BitmapTransformation getTransformation() {
         return transformation;
+    }
+
+    public int getPlaceholder() {
+        return placeholder;
+    }
+
+    public int getError() {
+        return error;
     }
 
     @Override
@@ -38,6 +50,8 @@ public class ImageForGlideParams implements ILoadImageParams {
     public static final class Builder {
         private String url;
         private BitmapTransformation transformation;
+        private int placeholder;//占位图
+        private int error;//失败图
 
         public Builder() {
         }
@@ -49,6 +63,16 @@ public class ImageForGlideParams implements ILoadImageParams {
 
         public Builder transformation(BitmapTransformation bitmapTransformation) {
             transformation = bitmapTransformation;
+            return this;
+        }
+
+        public Builder placeholder(int placePic) {
+            placeholder = placePic;
+            return this;
+        }
+
+        public Builder error(int errorPic) {
+            error = errorPic;
             return this;
         }
 

@@ -5,7 +5,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.widget.ImageView;
 
+import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 
 /**
  * Created by clarence on 2018/4/9.
@@ -31,46 +33,36 @@ public class ImageForGlide implements ILoadImage {
 
     @Override
     public void loadImage(Context context, ILoadImageParams builder) {
-        if (builder instanceof ImageForGlideParams) {
-            ImageForGlideParams glideParams = (ImageForGlideParams) builder;
-            if (glideParams.getTransformation() != null) {
-                Glide.with(context).load(glideParams.getUrl())
-                        .centerCrop()
-                        .transform(glideParams.getTransformation())
-                        .into(glideParams.getImageView());
-            } else {
-                Glide.with(context).load(glideParams.getUrl()).into(glideParams.getImageView());
-            }
-        }
+        RequestManager requestManager = Glide.with(context);
+        assemble(requestManager, builder);
     }
 
     @Override
     public void loadImage(FragmentActivity activity, ILoadImageParams builder) {
-        if (builder instanceof ImageForGlideParams) {
-            ImageForGlideParams glideParams = (ImageForGlideParams) builder;
-            if (glideParams.getTransformation() != null) {
-                Glide.with(activity).load(glideParams.getUrl())
-                        .centerCrop()
-                        .transform(glideParams.getTransformation())
-                        .into(glideParams.getImageView());
-            } else {
-                Glide.with(activity).load(glideParams.getUrl()).into(glideParams.getImageView());
-            }
-        }
+        RequestManager requestManager = Glide.with(activity);
+        assemble(requestManager, builder);
     }
 
     @Override
     public void loadImage(Fragment fragment, ILoadImageParams builder) {
+        RequestManager requestManager = Glide.with(fragment);
+        assemble(requestManager, builder);
+    }
+
+    private void assemble(RequestManager requestManager, ILoadImageParams builder) {
         if (builder instanceof ImageForGlideParams) {
             ImageForGlideParams glideParams = (ImageForGlideParams) builder;
+            DrawableRequestBuilder drawableRequestBuilder = requestManager.load(glideParams.getUrl());
             if (glideParams.getTransformation() != null) {
-                Glide.with(fragment).load(glideParams.getUrl())
-                        .centerCrop()
-                        .transform(glideParams.getTransformation())
-                        .into(glideParams.getImageView());
-            } else {
-                Glide.with(fragment).load(glideParams.getUrl()).into(glideParams.getImageView());
+                drawableRequestBuilder.centerCrop().transform(glideParams.getTransformation());
             }
+            if (glideParams.getError() != 0) {
+                drawableRequestBuilder.error(glideParams.getError());
+            }
+            if (glideParams.getPlaceholder() != 0) {
+                drawableRequestBuilder.placeholder(glideParams.getPlaceholder());
+            }
+            drawableRequestBuilder.into(glideParams.getImageView());
         }
     }
 }
