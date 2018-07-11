@@ -62,6 +62,9 @@ public class ImageForGlide implements ILoadImage {
             if (glideParams.getPlaceholder() != 0) {
                 drawableRequestBuilder.placeholder(glideParams.getPlaceholder());
             }
+            if (glideParams.getLocal() != 0) {
+                drawableRequestBuilder.load(glideParams.getLocal());
+            }
             drawableRequestBuilder.into(glideParams.getImageView());
         }
     }
